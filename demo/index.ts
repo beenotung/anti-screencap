@@ -2,7 +2,11 @@ import { attachCanvas } from '../core'
 
 let article = document.querySelector('article')!
 let canvas = article.querySelector('canvas')!
-let cover = attachCanvas(canvas, { patternSize: 5, autoStart: false })
+let cover = attachCanvas(canvas, {
+  patternSize: 5,
+  autoStart: false,
+  density: 1 / 2,
+})
 
 article.style.opacity = '1'
 

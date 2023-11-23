@@ -1,6 +1,10 @@
 export function attachCanvas(
   canvas: HTMLCanvasElement,
-  options: { patternSize: number; autoStart?: boolean },
+  options: {
+    patternSize: number
+    autoStart?: boolean
+    density?: number // default 1/2
+  },
 ) {
   let ctx = canvas.getContext('2d')
   if (!ctx) throw new Error('2d context not supported')
@@ -13,18 +17,21 @@ export function attachCanvas(
   let offset = 0
   let patternSize = options.patternSize
   let running = false
+  let density = options.density || 1 / 2
+  let N = Math.ceil(1 / density)
   function paint() {
     clear()
     let H = canvas.height
     let W = canvas.width
-    offset = (offset + 1) % 2
+    offset = (offset + 1) % N
     let i = offset
-    let adjust = (Math.ceil(W / patternSize) + 1) % 2
-    for (let y = 0; y < H; y += patternSize) {
+    let adjust = (Math.ceil(W / patternSize) + 1) % N
+    let step = patternSize * (N - 1)
+    for (let y = 0 * offset; y < H; y += step) {
       i += adjust
       for (let x = 0; x < W; x += patternSize) {
         i++
-        if (i % 2 == 0) {
+        if (i % N == 0) {
           context.fillRect(x, y, patternSize, patternSize)
         }
       }
