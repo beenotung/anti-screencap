@@ -17,4 +17,17 @@ Object.assign(window, {
   toggle() {
     cover.running = !cover.running
   },
+  switchImage(input: HTMLInputElement) {
+    let file = input.files?.[0]
+    if (file) {
+      let reader = new FileReader()
+      reader.onload = () => {
+        let img = article.querySelector('img')!
+        img.src = reader.result as string
+        img.removeAttribute('width')
+        img.removeAttribute('height')
+      }
+      reader.readAsDataURL(file)
+    }
+  },
 })

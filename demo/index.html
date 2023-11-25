@@ -19,12 +19,21 @@
         image-rendering: pixelated;
         pointer-events: none;
       }
+      img {
+        max-width: 100%;
+        max-height: 100vh;
+        max-height: 100dvh;
+      }
     </style>
   </head>
   <body>
     <h1>Anti-ScreenCap Demo</h1>
     <button onclick="toggle()">toggle start / pause</button>
     <button onclick="tick()">one step</button>
+    <p>
+      try with another image:
+      <input type="file" onchange="switchImage(this)" accept="image/*" />
+    </p>
     <article>
       <h2>This is a sample article</h2>
       <img
@@ -32,6 +41,7 @@
         alt="sample image"
         width="200"
         height="200"
+        onload="tick()"
       />
       <p>Some paragraph 1</p>
       <p>Some paragraph 2</p>
